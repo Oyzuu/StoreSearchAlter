@@ -22,10 +22,11 @@ class SearchViewController: UIViewController {
     var searchResults = [SearchResult]()
     var hasSearched   = false
     var isLoading     = false
+    var dataTask: NSURLSessionDataTask?
     
     // MARK: Cell identifiers constants
     
-    struct TableViewCellIdentifiers {
+    struct CellIdentifiers {
         static let searchResultCell = "SearchResultCell"
         static let nothingFoundCell = "NothingFoundCell"
         static let loadingCell      = "LoadingCell"
@@ -37,14 +38,14 @@ class SearchViewController: UIViewController {
         super.viewDidLoad()
         tableView.contentInset = UIEdgeInsets(top: 64, left: 0, bottom: 0, right: 0)
         
-        var cellNib = UINib(nibName: TableViewCellIdentifiers.searchResultCell, bundle: nil)
-        tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.searchResultCell)
+        var cellNib = UINib(nibName: CellIdentifiers.searchResultCell, bundle: nil)
+        tableView.registerNib(cellNib, forCellReuseIdentifier: CellIdentifiers.searchResultCell)
         
-        cellNib = UINib(nibName: TableViewCellIdentifiers.nothingFoundCell, bundle: nil)
-        tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.nothingFoundCell)
+        cellNib = UINib(nibName: CellIdentifiers.nothingFoundCell, bundle: nil)
+        tableView.registerNib(cellNib, forCellReuseIdentifier: CellIdentifiers.nothingFoundCell)
         
-        cellNib = UINib(nibName: TableViewCellIdentifiers.loadingCell, bundle: nil)
-        tableView.registerNib(cellNib, forCellReuseIdentifier: TableViewCellIdentifiers.loadingCell)
+        cellNib = UINib(nibName: CellIdentifiers.loadingCell, bundle: nil)
+        tableView.registerNib(cellNib, forCellReuseIdentifier: CellIdentifiers.loadingCell)
         
         tableView.rowHeight = 80
         
@@ -233,6 +234,7 @@ extension SearchViewController: UISearchBarDelegate {
         }
         
         searchBar.resignFirstResponder()
+        dataTask?.cancel()
         
         isLoading = true
         tableView.reloadData()
@@ -243,11 +245,14 @@ extension SearchViewController: UISearchBarDelegate {
         let url = self.urlWithSearchText(searchBar.text!)
         
         let session  = NSURLSession.sharedSession()
-        let dataTask = session.dataTaskWithURL(url) { data, response, error in
+        dataTask = session.dataTaskWithURL(url) { data, response, error in
             
             print("Main thread? : " + (NSThread.currentThread().isMainThread ? "yes" : "no"))
             
-            if let error = error {
+            if let error = error where error.code == -999 {
+                return
+            }
+            else if let error = error {
                 print("Failure: \(error)")
             }
             else if let httpResponse = response as? NSHTTPURLResponse where httpResponse.statusCode == 200 {
@@ -276,7 +281,7 @@ extension SearchViewController: UISearchBarDelegate {
             }
         }
         
-        dataTask.resume()
+        dataTask?.resume()
     }
     
     func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
@@ -305,17 +310,17 @@ extension SearchViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         if isLoading {
-            let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.loadingCell, forIndexPath: indexPath) as! LoadingCell
+            let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifiers.loadingCell, forIndexPath: indexPath) as! LoadingCell
             
             cell.activityIndicator.startAnimating()
             
             return cell
         }
         else if searchResults.count == 0 {
-            return tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.nothingFoundCell,forIndexPath: indexPath)
+            return tableView.dequeueReusableCellWithIdentifier(CellIdentifiers.nothingFoundCell,forIndexPath: indexPath)
         }
         else {
-            let cell = tableView.dequeueReusableCellWithIdentifier(TableViewCellIdentifiers.searchResultCell,forIndexPath: indexPath) as! SearchResultCell
+            let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifiers.searchResultCell,forIndexPath: indexPath) as! SearchResultCell
             
             let searchResult = searchResults[indexPath.row]
             cell.nameLabel.text = searchResult.name
