@@ -10,9 +10,17 @@ import UIKit
 
 class SearchResultCell: UITableViewCell {
     
+    // MARK: Outlets
+    
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var artistNameLabel: UILabel!
     @IBOutlet weak var artworkImageView: UIImageView!
+    
+    // MARK: Properties
+    
+    var downloadTask: NSURLSessionDownloadTask?
+    
+    // MARK: Overrides
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,8 +31,35 @@ class SearchResultCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    }
+    
+    // MARK: Methods
+    
+    func configureForSearchResult(searchResult: SearchResult) {
+        nameLabel.text       = searchResult.name
+        artistNameLabel.text = searchResult.artistName.isEmpty ?
+            "Unknown" : "\(searchResult.artistName) (\(kindForDisplay(searchResult.kind))"
+        artworkImageView.image = UIImage(named: "Placeholder")
+        
+        if let url = NSURL(string: searchResult.artworkURL60) {
+            downloadTask = artworkImageView.loadImageWithURL(url)
+        }
+    }
+    
+    func kindForDisplay(kind: String) -> String {
+        switch kind {
+        case "album": return "Album"
+        case "audiobook": return "Audio Book"
+        case "book": return "Book"
+        case "ebook": return "E-Book"
+        case "feature-movie": return "Movie"
+        case "music-video": return "Music Video"
+        case "podcast": return "Podcast"
+        case "software": return "App"
+        case "song": return "Song"
+        case "tv-episode": return "TV Episode"
+        default: return kind
+        }
     }
 
 }

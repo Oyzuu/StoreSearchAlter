@@ -287,6 +287,7 @@ extension SearchViewController: UISearchBarDelegate {
     func positionForBar(bar: UIBarPositioning) -> UIBarPosition {
         return .TopAttached
     }
+    
 }
 
 // MARK: EXT - TableView data source
@@ -323,14 +324,11 @@ extension SearchViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifiers.searchResultCell,forIndexPath: indexPath) as! SearchResultCell
             
             let searchResult = searchResults[indexPath.row]
-            cell.nameLabel.text = searchResult.name
-            
-            if searchResult.artistName.isEmpty {
-                cell.artistNameLabel.text = "Unknown"
-            }
-            else {
-                cell.artistNameLabel.text = String(format: "%@ (%@)", searchResult.artistName, kindForDisplay(searchResult.kind))
-            }
+            cell.configureForSearchResult(searchResult)
+            cell.imageView?.layer.cornerRadius = (cell.imageView?.frame.size.height)! / 2
+//            cell.imageView?.layer.masksToBounds = true
+//            cell.imageView?.layer.opaque = false
+//            cell.imageView?.clipsToBounds = true
             
             return cell
         }

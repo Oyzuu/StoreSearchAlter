@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5C69D0F91D82A0D1002C9C78 /* LoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5C69D0F81D82A0D1002C9C78 /* LoadingCell.xib */; };
 		5C69D0FB1D82A35C002C9C78 /* LoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C69D0FA1D82A35C002C9C78 /* LoadingCell.swift */; };
+		5C69D0FD1D82C280002C9C78 /* UIImageView+DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C69D0FC1D82C280002C9C78 /* UIImageView+DownloadImage.swift */; };
 		B950DAA01D814B9A008D7EAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B950DA9F1D814B9A008D7EAB /* AppDelegate.swift */; };
 		B950DAA21D814B9A008D7EAB /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B950DAA11D814B9A008D7EAB /* SearchViewController.swift */; };
 		B950DAA51D814B9A008D7EAB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B950DAA31D814B9A008D7EAB /* Main.storyboard */; };
@@ -23,6 +24,7 @@
 /* Begin PBXFileReference section */
 		5C69D0F81D82A0D1002C9C78 /* LoadingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingCell.xib; sourceTree = "<group>"; };
 		5C69D0FA1D82A35C002C9C78 /* LoadingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingCell.swift; sourceTree = "<group>"; };
+		5C69D0FC1D82C280002C9C78 /* UIImageView+DownloadImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImageView+DownloadImage.swift"; sourceTree = "<group>"; };
 		B950DA9C1D814B9A008D7EAB /* StoreSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StoreSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B950DA9F1D814B9A008D7EAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B950DAA11D814B9A008D7EAB /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				B950DA9F1D814B9A008D7EAB /* AppDelegate.swift */,
 				B950DAA61D814B9A008D7EAB /* Assets.xcassets */,
 				B950DAAB1D814B9A008D7EAB /* Info.plist */,
+				5C69D0FC1D82C280002C9C78 /* UIImageView+DownloadImage.swift */,
 			);
 			path = StoreSearch;
 			sourceTree = "<group>";
@@ -190,6 +193,7 @@
 			files = (
 				B950DAA21D814B9A008D7EAB /* SearchViewController.swift in Sources */,
 				B950DAB21D8159CA008D7EAB /* SearchResult.swift in Sources */,
+				5C69D0FD1D82C280002C9C78 /* UIImageView+DownloadImage.swift in Sources */,
 				B950DAB61D816CE0008D7EAB /* SearchResultCell.swift in Sources */,
 				B950DAA01D814B9A008D7EAB /* AppDelegate.swift in Sources */,
 				5C69D0FB1D82A35C002C9C78 /* LoadingCell.swift in Sources */,
