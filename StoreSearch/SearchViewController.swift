@@ -325,7 +325,7 @@ extension SearchViewController: UITableViewDataSource {
             
             let searchResult = searchResults[indexPath.row]
             cell.configureForSearchResult(searchResult)
-            cell.imageView?.layer.cornerRadius = (cell.imageView?.frame.size.height)! / 2
+//            cell.imageView?.layer.cornerRadius = (cell.imageView?.frame.size.height)! / 2
 //            cell.imageView?.layer.masksToBounds = true
 //            cell.imageView?.layer.opaque = false
 //            cell.imageView?.clipsToBounds = true

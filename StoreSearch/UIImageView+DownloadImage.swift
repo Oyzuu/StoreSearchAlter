@@ -25,6 +25,10 @@ extension UIImageView {
                                                   options: UIViewAnimationOptions.TransitionCrossDissolve,
                                                   animations: { self.image = image },
                                                   completion: nil)
+                        self.layer.cornerRadius  = self.frame.size.height / 2
+                        self.layer.masksToBounds = true
+                        self.layer.opaque        = false
+                        self.clipsToBounds       = true
                     }
                 }
             }
